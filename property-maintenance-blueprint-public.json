@@ -1,0 +1,1385 @@
+{
+  "name": "Integration Google Sheets, Airtable",
+  "flow": [
+    {
+      "id": 1,
+      "module": "google-sheets:watchRows",
+      "version": 2,
+      "parameters": {
+        "from": "drive",
+        "mode": "select",
+        "limit": 1,
+        "sheetId": "Form Responses 1",
+        "__IMTCONN__": 0,
+        "spreadsheetId": "REPLACE_WITH_SPREADSHEET_ID",
+        "tableFirstRow": "A1:Z1",
+        "includesHeaders": true,
+        "valueRenderOption": "FORMATTED_VALUE",
+        "dateTimeRenderOption": "FORMATTED_STRING"
+      },
+      "mapper": {},
+      "metadata": {
+        "designer": {
+          "x": 0,
+          "y": 0
+        },
+        "parameters": [
+          {
+            "name": "__IMTCONN__",
+            "type": "account:google",
+            "label": "Connection",
+            "required": true
+          },
+          {
+            "name": "mode",
+            "type": "select",
+            "label": "Search Method",
+            "required": true,
+            "validate": {
+              "enum": [
+                "select",
+                "fromAll",
+                "map"
+              ]
+            }
+          },
+          {
+            "name": "includesHeaders",
+            "type": "select",
+            "label": "Table contains headers",
+            "required": true,
+            "validate": {
+              "enum": [
+                true,
+                false
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "type": "uinteger",
+            "label": "Limit",
+            "required": true
+          },
+          {
+            "name": "valueRenderOption",
+            "type": "select",
+            "label": "Value render option",
+            "validate": {
+              "enum": [
+                "FORMATTED_VALUE",
+                "UNFORMATTED_VALUE",
+                "FORMULA"
+              ]
+            }
+          },
+          {
+            "name": "dateTimeRenderOption",
+            "type": "select",
+            "label": "Date and time render option",
+            "validate": {
+              "enum": [
+                "SERIAL_NUMBER",
+                "FORMATTED_STRING"
+              ]
+            }
+          },
+          {
+            "name": "from",
+            "type": "select",
+            "label": "Drive",
+            "required": true,
+            "validate": {
+              "enum": [
+                "drive",
+                "share",
+                "team"
+              ]
+            }
+          },
+          {
+            "name": "spreadsheetId",
+            "type": "file",
+            "label": "Spreadsheet ID",
+            "required": true
+          },
+          {
+            "name": "sheetId",
+            "type": "select",
+            "label": "Sheet Name",
+            "required": true
+          },
+          {
+            "name": "tableFirstRow",
+            "type": "text",
+            "label": "Row with headers",
+            "required": true
+          }
+        ],
+        "interface": [
+          {
+            "name": "__ROW_NUMBER__",
+            "type": "number",
+            "label": "Row number"
+          },
+          {
+            "name": "__SPREADSHEET_ID__",
+            "type": "text",
+            "label": "Spreadsheet ID"
+          },
+          {
+            "name": "__SHEET__",
+            "type": "text",
+            "label": "Sheet"
+          },
+          {
+            "name": "0",
+            "type": "text",
+            "label": "Timestamp (A)"
+          },
+          {
+            "name": "1",
+            "type": "text",
+            "label": "Tenant Name (B)"
+          },
+          {
+            "name": "2",
+            "type": "text",
+            "label": "Tenant Email *   (C)"
+          },
+          {
+            "name": "3",
+            "type": "text",
+            "label": "Apartment Number *   (D)"
+          },
+          {
+            "name": "4",
+            "type": "text",
+            "label": "Issue Description *   (E)"
+          },
+          {
+            "name": "5",
+            "type": "text",
+            "label": "Request Date *   (F)"
+          },
+          {
+            "name": "6",
+            "type": "text",
+            "label": "(G)"
+          },
+          {
+            "name": "7",
+            "type": "text",
+            "label": "(H)"
+          },
+          {
+            "name": "8",
+            "type": "text",
+            "label": "(I)"
+          },
+          {
+            "name": "9",
+            "type": "text",
+            "label": "(J)"
+          },
+          {
+            "name": "10",
+            "type": "text",
+            "label": "(K)"
+          },
+          {
+            "name": "11",
+            "type": "text",
+            "label": "(L)"
+          },
+          {
+            "name": "12",
+            "type": "text",
+            "label": "(M)"
+          },
+          {
+            "name": "13",
+            "type": "text",
+            "label": "(N)"
+          },
+          {
+            "name": "14",
+            "type": "text",
+            "label": "(O)"
+          },
+          {
+            "name": "15",
+            "type": "text",
+            "label": "(P)"
+          },
+          {
+            "name": "16",
+            "type": "text",
+            "label": "(Q)"
+          },
+          {
+            "name": "17",
+            "type": "text",
+            "label": "(R)"
+          },
+          {
+            "name": "18",
+            "type": "text",
+            "label": "(S)"
+          },
+          {
+            "name": "19",
+            "type": "text",
+            "label": "(T)"
+          },
+          {
+            "name": "20",
+            "type": "text",
+            "label": "(U)"
+          },
+          {
+            "name": "21",
+            "type": "text",
+            "label": "(V)"
+          },
+          {
+            "name": "22",
+            "type": "text",
+            "label": "(W)"
+          },
+          {
+            "name": "23",
+            "type": "text",
+            "label": "(X)"
+          },
+          {
+            "name": "24",
+            "type": "text",
+            "label": "(Y)"
+          },
+          {
+            "name": "25",
+            "type": "text",
+            "label": "(Z)"
+          }
+        ]
+      }
+    },
+    {
+      "id": 8,
+      "module": "gemini-ai:simpleTextPrompt",
+      "version": 1,
+      "parameters": {},
+      "filter": null,
+      "mapper": {
+        "model": "gemini-2.5-flash",
+        "textPrompt": "You are an AI assistant for a property maintenance company.\r\n\r\nAnalyze the following tenant maintenance request:\r\n\r\nIssue Description: [{{1.`4`}}]\r\n\r\nClassify the request into:\r\n\r\nCategory: Plumbing, Electrical, HVAC, or General\r\nPriority: High, Medium, or Low\r\n\r\nReturn ONLY valid JSON in this format:\r\n{\r\n  \"category\": \"Plumbing\",\r\n  \"priority\": \"Medium\"\r\n}\r\n\r\nDo not include explanations or markdown."
+      },
+      "metadata": {
+        "designer": {
+          "x": 343,
+          "y": 0
+        },
+        "expect": [
+          {
+            "name": "model",
+            "type": "select",
+            "label": "Model",
+            "required": true,
+            "validate": {
+              "enum": [
+                "gemini-2.5-flash",
+                "gemini-4-argon",
+                "gemini-3.8-flash",
+                "gemini-3.6-flash",
+                "gemini-3.1-pro-preview",
+                "gemini-3-flash-preview",
+                "gemini-2.5-pro"
+              ]
+            }
+          },
+          {
+            "name": "textPrompt",
+            "type": "text",
+            "label": "Text prompt",
+            "required": true
+          }
+        ]
+      },
+      "onerror": [
+        {
+          "id": 10,
+          "module": "builtin:Break",
+          "version": 1,
+          "parameters": {},
+          "mapper": {
+            "count": "3",
+            "retry": true,
+            "interval": "1"
+          },
+          "metadata": {
+            "designer": {
+              "x": 643,
+              "y": 150
+            },
+            "setupValidation": {
+              "result": {
+                "valid": true,
+                "fields": []
+              },
+              "version": 1,
+              "configuration": "325dc316fc07dabd"
+            },
+            "restore": {
+              "expect": {
+                "retry": {
+                  "mode": "chose"
+                }
+              }
+            },
+            "expect": [
+              {
+                "name": "retry",
+                "type": "boolean",
+                "label": "Retry automatically",
+                "required": true
+              },
+              {
+                "name": "count",
+                "type": "uinteger",
+                "label": "Number of retries",
+                "required": true,
+                "validate": {
+                  "max": 10000,
+                  "min": 1
+                }
+              },
+              {
+                "name": "interval",
+                "type": "uinteger",
+                "label": "Minutes between retries",
+                "required": true,
+                "validate": {
+                  "max": 44640,
+                  "min": 1
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "module": "json:ParseJSON",
+      "version": 1,
+      "parameters": {
+        "type": 688356
+      },
+      "filter": null,
+      "mapper": {
+        "json": "{{8.result}}"
+      },
+      "metadata": {
+        "designer": {
+          "x": 643,
+          "y": -150
+        },
+        "parameters": [
+          {
+            "name": "type",
+            "type": "udt",
+            "label": "Data structure"
+          }
+        ],
+        "expect": [
+          {
+            "name": "json",
+            "type": "text",
+            "label": "JSON string",
+            "required": true
+          }
+        ],
+        "interface": [
+          {
+            "help": "",
+            "name": "category",
+            "type": "text",
+            "label": "Category"
+          },
+          {
+            "help": "",
+            "name": "priority",
+            "type": "text",
+            "label": "Priority"
+          }
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "module": "airtable:ActionCreateRecord",
+      "version": 3,
+      "parameters": {
+        "__IMTCONN__": 0
+      },
+      "mapper": {
+        "base": "REPLACE_WITH_AIRTABLE_BASE_ID",
+        "table": "REPLACE_WITH_AIRTABLE_TABLE_ID",
+        "record": {
+          "fld5h0BeUnTq8ABQr": "{{9.category}}",
+          "fld8rawWdsd8HAjuL": "{{1.`1`}}",
+          "fldAzz3bnlWO69KVQ": "{{1.`2`}}",
+          "fldg3Wn9XFOITeQVY": "{{1.`3`}}",
+          "fldjP6RqLlcqOGJ9B": "{{1.`5`}}",
+          "fldkBEFBDTlLzLIol": "{{9.priority}}",
+          "fldsemNImOfFMZAiF": "{{1.`4`}}"
+        },
+        "typecast": false,
+        "useColumnId": false
+      },
+      "metadata": {
+        "designer": {
+          "x": 943,
+          "y": 0
+        },
+        "parameters": [
+          {
+            "name": "__IMTCONN__",
+            "type": "account:airtable3,airtable2",
+            "label": "Connection",
+            "required": true
+          }
+        ],
+        "expect": [
+          {
+            "name": "base",
+            "type": "select",
+            "label": "Base",
+            "required": true
+          },
+          {
+            "name": "typecast",
+            "type": "boolean",
+            "label": "Smart links",
+            "required": true
+          },
+          {
+            "name": "useColumnId",
+            "type": "boolean",
+            "label": "Use column ID",
+            "required": true
+          },
+          {
+            "name": "table",
+            "type": "select",
+            "label": "Table",
+            "required": true
+          },
+          {
+            "name": "record",
+            "spec": [
+              {
+                "name": "fld8rawWdsd8HAjuL",
+                "type": "text",
+                "label": "Tenant Name"
+              },
+              {
+                "name": "fldAzz3bnlWO69KVQ",
+                "type": "text",
+                "label": "Tenant Email"
+              },
+              {
+                "name": "fldg3Wn9XFOITeQVY",
+                "type": "text",
+                "label": "Apartment Number"
+              },
+              {
+                "name": "fldsemNImOfFMZAiF",
+                "type": "text",
+                "label": "Issue Description"
+              },
+              {
+                "name": "fldjP6RqLlcqOGJ9B",
+                "time": false,
+                "type": "date",
+                "label": "Request Date"
+              },
+              {
+                "mode": "edit",
+                "name": "fld5h0BeUnTq8ABQr",
+                "type": "select",
+                "label": "Category"
+              },
+              {
+                "mode": "edit",
+                "name": "fldkBEFBDTlLzLIol",
+                "type": "select",
+                "label": "Priority"
+              },
+              {
+                "name": "fldh1kErf6hFXU2IO",
+                "spec": {
+                  "name": "value",
+                  "type": "text",
+                  "label": "Record ID"
+                },
+                "type": "array",
+                "label": "Assigned Contractor"
+              },
+              {
+                "mode": "edit",
+                "name": "fldj0BKPvShGIGjlU",
+                "type": "select",
+                "label": "Status"
+              }
+            ],
+            "type": "collection",
+            "label": "Record"
+          }
+        ],
+        "interface": [
+          {
+            "name": "id",
+            "type": "text",
+            "label": "ID"
+          },
+          {
+            "name": "createdTime",
+            "type": "date",
+            "label": "Created time"
+          },
+          {
+            "name": "Request ID",
+            "type": "number",
+            "label": "Request ID"
+          },
+          {
+            "name": "Tenant Name",
+            "type": "text",
+            "label": "Tenant Name"
+          },
+          {
+            "name": "Tenant Email",
+            "type": "text",
+            "label": "Tenant Email"
+          },
+          {
+            "name": "Apartment Number",
+            "type": "text",
+            "label": "Apartment Number"
+          },
+          {
+            "name": "Issue Description",
+            "type": "text",
+            "label": "Issue Description",
+            "multiline": true
+          },
+          {
+            "name": "Request Date",
+            "time": false,
+            "type": "date",
+            "label": "Request Date"
+          },
+          {
+            "name": "Category",
+            "type": "text",
+            "label": "Category"
+          },
+          {
+            "name": "Priority",
+            "type": "text",
+            "label": "Priority"
+          },
+          {
+            "name": "Assigned Contractor",
+            "spec": {
+              "type": "text",
+              "label": "Record ID"
+            },
+            "type": "array",
+            "label": "Assigned Contractor"
+          },
+          {
+            "name": "Status",
+            "type": "text",
+            "label": "Status"
+          },
+          {
+            "name": "Last Updated",
+            "type": "date",
+            "label": "Last Updated"
+          }
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "module": "airtable:ActionSearchRecords",
+      "version": 3,
+      "parameters": {
+        "__IMTCONN__": 0
+      },
+      "mapper": {
+        "base": "REPLACE_WITH_AIRTABLE_BASE_ID",
+        "table": "REPLACE_WITH_AIRTABLE_TABLE_ID",
+        "formula": "AND(\r\n  {Active Status}=1,\r\n  {Availability}=\"Available\",\r\n  {Specialty}=\"{{9.category}}\"\r\n)",
+        "maxRecords": "1",
+        "useColumnId": false,
+        "formulaField": "formula"
+      },
+      "metadata": {
+        "designer": {
+          "x": 1200,
+          "y": 0
+        },
+        "parameters": [
+          {
+            "name": "__IMTCONN__",
+            "type": "account:airtable3,airtable2",
+            "label": "Connection",
+            "required": true
+          }
+        ],
+        "expect": [
+          {
+            "name": "base",
+            "type": "select",
+            "label": "Base",
+            "required": true
+          },
+          {
+            "name": "useColumnId",
+            "type": "boolean",
+            "label": "Use column ID",
+            "required": true
+          },
+          {
+            "name": "table",
+            "type": "select",
+            "label": "Table",
+            "required": true
+          },
+          {
+            "name": "maxRecords",
+            "type": "integer",
+            "label": "Limit"
+          },
+          {
+            "name": "sort",
+            "spec": [
+              {
+                "name": "field",
+                "type": "select",
+                "label": "Field",
+                "dynamic": true,
+                "options": []
+              },
+              {
+                "name": "direction",
+                "type": "select",
+                "label": "Direction",
+                "options": [
+                  {
+                    "label": "Descending",
+                    "value": "desc"
+                  },
+                  {
+                    "label": "Ascending",
+                    "value": "asc"
+                  }
+                ]
+              }
+            ],
+            "type": "array",
+            "label": "Sort"
+          },
+          {
+            "name": "view",
+            "type": "select",
+            "label": "View"
+          },
+          {
+            "name": "fields",
+            "type": "select",
+            "label": "Output fields",
+            "multiple": true
+          },
+          {
+            "name": "formulaField",
+            "type": "select",
+            "label": "Filter type",
+            "validate": {
+              "enum": [
+                "formula",
+                "simpleFilter"
+              ]
+            }
+          },
+          {
+            "name": "formula",
+            "type": "text",
+            "label": "Formula"
+          }
+        ],
+        "interface": [
+          {
+            "name": "id",
+            "type": "text",
+            "label": "ID"
+          },
+          {
+            "name": "createdTime",
+            "type": "date",
+            "label": "Created time"
+          },
+          {
+            "name": "Contractor Name",
+            "type": "text",
+            "label": "Contractor Name"
+          },
+          {
+            "name": "Email",
+            "type": "text",
+            "label": "Email"
+          },
+          {
+            "name": "Phone",
+            "type": "text",
+            "label": "Phone"
+          },
+          {
+            "name": "Specialty",
+            "type": "text",
+            "label": "Specialty"
+          },
+          {
+            "name": "Availability",
+            "type": "text",
+            "label": "Availability"
+          },
+          {
+            "name": "Active Status",
+            "type": "boolean",
+            "label": "Active Status"
+          },
+          {
+            "name": "Maintenance Requests",
+            "spec": {
+              "type": "text",
+              "label": "Record ID"
+            },
+            "type": "array",
+            "label": "Maintenance Requests"
+          }
+        ]
+      }
+    },
+    {
+      "id": 5,
+      "module": "airtable:ActionUpdateRecords",
+      "version": 3,
+      "parameters": {
+        "__IMTCONN__": 0
+      },
+      "mapper": {
+        "id": "{{2.id}}",
+        "base": "REPLACE_WITH_AIRTABLE_BASE_ID",
+        "table": "REPLACE_WITH_AIRTABLE_TABLE_ID",
+        "record": {
+          "fldh1kErf6hFXU2IO": [
+            "{{3.id}}"
+          ],
+          "fldj0BKPvShGIGjlU": "Assigned"
+        },
+        "typecast": false,
+        "useColumnId": false
+      },
+      "metadata": {
+        "designer": {
+          "x": 1500,
+          "y": 0
+        },
+        "parameters": [
+          {
+            "name": "__IMTCONN__",
+            "type": "account:airtable3,airtable2",
+            "label": "Connection",
+            "required": true
+          }
+        ],
+        "expect": [
+          {
+            "name": "base",
+            "type": "select",
+            "label": "Base",
+            "required": true
+          },
+          {
+            "name": "typecast",
+            "type": "boolean",
+            "label": "Smart links",
+            "required": true
+          },
+          {
+            "name": "useColumnId",
+            "type": "boolean",
+            "label": "Use column ID",
+            "required": true
+          },
+          {
+            "name": "table",
+            "type": "select",
+            "label": "Table",
+            "required": true
+          },
+          {
+            "name": "id",
+            "type": "text",
+            "label": "Record ID",
+            "required": true
+          },
+          {
+            "name": "record",
+            "spec": [
+              {
+                "name": "fld8rawWdsd8HAjuL",
+                "type": "text",
+                "label": "Tenant Name"
+              },
+              {
+                "name": "fldAzz3bnlWO69KVQ",
+                "type": "text",
+                "label": "Tenant Email"
+              },
+              {
+                "name": "fldg3Wn9XFOITeQVY",
+                "type": "text",
+                "label": "Apartment Number"
+              },
+              {
+                "name": "fldsemNImOfFMZAiF",
+                "type": "text",
+                "label": "Issue Description"
+              },
+              {
+                "name": "fldjP6RqLlcqOGJ9B",
+                "time": false,
+                "type": "date",
+                "label": "Request Date"
+              },
+              {
+                "mode": "edit",
+                "name": "fld5h0BeUnTq8ABQr",
+                "type": "select",
+                "label": "Category"
+              },
+              {
+                "mode": "edit",
+                "name": "fldkBEFBDTlLzLIol",
+                "type": "select",
+                "label": "Priority"
+              },
+              {
+                "name": "fldh1kErf6hFXU2IO",
+                "spec": {
+                  "name": "value",
+                  "type": "text",
+                  "label": "Record ID"
+                },
+                "type": "array",
+                "label": "Assigned Contractor"
+              },
+              {
+                "mode": "edit",
+                "name": "fldj0BKPvShGIGjlU",
+                "type": "select",
+                "label": "Status"
+              }
+            ],
+            "type": "collection",
+            "label": "Record"
+          }
+        ],
+        "interface": [
+          {
+            "name": "id",
+            "type": "text",
+            "label": "ID"
+          },
+          {
+            "name": "createdTime",
+            "type": "date",
+            "label": "Created time"
+          },
+          {
+            "name": "Request ID",
+            "type": "number",
+            "label": "Request ID"
+          },
+          {
+            "name": "Tenant Name",
+            "type": "text",
+            "label": "Tenant Name"
+          },
+          {
+            "name": "Tenant Email",
+            "type": "text",
+            "label": "Tenant Email"
+          },
+          {
+            "name": "Apartment Number",
+            "type": "text",
+            "label": "Apartment Number"
+          },
+          {
+            "name": "Issue Description",
+            "type": "text",
+            "label": "Issue Description",
+            "multiline": true
+          },
+          {
+            "name": "Request Date",
+            "time": false,
+            "type": "date",
+            "label": "Request Date"
+          },
+          {
+            "name": "Category",
+            "type": "text",
+            "label": "Category"
+          },
+          {
+            "name": "Priority",
+            "type": "text",
+            "label": "Priority"
+          },
+          {
+            "name": "Assigned Contractor",
+            "spec": {
+              "type": "text",
+              "label": "Record ID"
+            },
+            "type": "array",
+            "label": "Assigned Contractor"
+          },
+          {
+            "name": "Status",
+            "type": "text",
+            "label": "Status"
+          },
+          {
+            "name": "Last Updated",
+            "type": "date",
+            "label": "Last Updated"
+          }
+        ]
+      }
+    },
+    {
+      "id": 6,
+      "module": "google-email:sendAnEmail",
+      "version": 4,
+      "parameters": {
+        "__IMTCONN__": 0
+      },
+      "mapper": {
+        "to": [
+          "contractor-test@example.com"
+        ],
+        "subject": "New Maintenance Job Assigned",
+        "bodyType": "collection",
+        "contents": [
+          {
+            "text": "Hello,\r\n\r\nA new maintenance request has been assigned to you.\r\n\r\nTenant: {{1.`1`}}\r\nApartment: {{1.`3`}}\r\nIssue: {{1.`4`}}\r\nRequest Date: {{1.`5`}}\r\n\r\nPlease review the request and confirm your availability.\r\n\r\nThank you,\r\nProperty Maintenance Team",
+            "image": {}
+          }
+        ]
+      },
+      "metadata": {
+        "designer": {
+          "x": 1800,
+          "y": 0
+        },
+        "parameters": [
+          {
+            "name": "__IMTCONN__",
+            "type": "account:google-email",
+            "label": "Connection",
+            "required": true
+          }
+        ],
+        "expect": [
+          {
+            "name": "to",
+            "spec": {
+              "name": "value",
+              "type": "email",
+              "label": "Recipient email address",
+              "required": true,
+              "validate": true
+            },
+            "type": "array",
+            "label": "To",
+            "required": true
+          },
+          {
+            "name": "subject",
+            "type": "text",
+            "label": "Subject"
+          },
+          {
+            "name": "bodyType",
+            "type": "select",
+            "label": "Body type",
+            "required": true,
+            "validate": {
+              "enum": [
+                "rawHtml",
+                "collection"
+              ]
+            }
+          },
+          {
+            "name": "attachments",
+            "spec": {
+              "name": "value",
+              "spec": [
+                {
+                  "name": "filename",
+                  "type": "filename",
+                  "label": "File name",
+                  "required": true,
+                  "semantic": "file:name"
+                },
+                {
+                  "name": "data",
+                  "type": "buffer",
+                  "label": "Data",
+                  "required": true,
+                  "semantic": "file:data"
+                }
+              ],
+              "type": "collection",
+              "label": "Attachment"
+            },
+            "type": "array",
+            "label": "Attachments"
+          },
+          {
+            "name": "from",
+            "type": "select",
+            "label": "From"
+          },
+          {
+            "name": "cc",
+            "spec": {
+              "name": "value",
+              "type": "email",
+              "label": "Recipient email address"
+            },
+            "type": "array",
+            "label": "CC recipients"
+          },
+          {
+            "name": "bcc",
+            "spec": {
+              "name": "value",
+              "type": "email",
+              "label": "Recipient email address"
+            },
+            "type": "array",
+            "label": "BCC recipients"
+          },
+          {
+            "name": "emailHeaders",
+            "spec": {
+              "name": "value",
+              "spec": [
+                {
+                  "name": "key",
+                  "type": "text",
+                  "label": "Key",
+                  "required": true
+                },
+                {
+                  "name": "value",
+                  "type": "text",
+                  "label": "Value"
+                }
+              ],
+              "type": "collection",
+              "label": "Email header"
+            },
+            "type": "array",
+            "label": "Additional email headers"
+          },
+          {
+            "name": "contents",
+            "spec": {
+              "name": "value",
+              "spec": [
+                {
+                  "name": "text",
+                  "type": "text",
+                  "label": "Text"
+                },
+                {
+                  "name": "image",
+                  "spec": [
+                    {
+                      "name": "filename",
+                      "type": "filename",
+                      "label": "File name",
+                      "semantic": "file:name"
+                    },
+                    {
+                      "name": "data",
+                      "type": "buffer",
+                      "label": "Data",
+                      "semantic": "file:data"
+                    },
+                    {
+                      "name": "width",
+                      "type": "uinteger",
+                      "label": "Width"
+                    },
+                    {
+                      "name": "height",
+                      "type": "uinteger",
+                      "label": "Height"
+                    }
+                  ],
+                  "type": "collection",
+                  "label": "Image"
+                }
+              ],
+              "type": "collection",
+              "label": "Content"
+            },
+            "type": "array",
+            "label": "Body contents"
+          },
+          {
+            "name": "signature",
+            "type": "select",
+            "label": "Signature content"
+          }
+        ]
+      }
+    },
+    {
+      "id": 7,
+      "module": "google-email:sendAnEmail",
+      "version": 4,
+      "parameters": {
+        "__IMTCONN__": 0
+      },
+      "mapper": {
+        "to": [
+          "{{1.`2`}}"
+        ],
+        "subject": "\tMaintenance Request Received",
+        "bodyType": "collection",
+        "contents": [
+          {
+            "text": "Hi [{{1.`1`}}],\r\n\r\nWe've received your maintenance request for Apartment: {{1.`3`}}\r\n\r\n Issue: [{{1.`4`}}]\r\nRequest Date: [{{1.`5`}}]\r\n\r\nYour request has been recorded, and our team will coordinate the next steps.\r\n\r\nWe'll keep you updated.\r\n\r\nBest regards,\r\nProperty Maintenance Team",
+            "image": {}
+          }
+        ]
+      },
+      "metadata": {
+        "designer": {
+          "x": 2100,
+          "y": 0
+        },
+        "parameters": [
+          {
+            "name": "__IMTCONN__",
+            "type": "account:google-email",
+            "label": "Connection",
+            "required": true
+          }
+        ],
+        "expect": [
+          {
+            "name": "to",
+            "spec": {
+              "name": "value",
+              "type": "email",
+              "label": "Recipient email address",
+              "required": true,
+              "validate": true
+            },
+            "type": "array",
+            "label": "To",
+            "required": true
+          },
+          {
+            "name": "subject",
+            "type": "text",
+            "label": "Subject"
+          },
+          {
+            "name": "bodyType",
+            "type": "select",
+            "label": "Body type",
+            "required": true,
+            "validate": {
+              "enum": [
+                "rawHtml",
+                "collection"
+              ]
+            }
+          },
+          {
+            "name": "attachments",
+            "spec": {
+              "name": "value",
+              "spec": [
+                {
+                  "name": "filename",
+                  "type": "filename",
+                  "label": "File name",
+                  "required": true,
+                  "semantic": "file:name"
+                },
+                {
+                  "name": "data",
+                  "type": "buffer",
+                  "label": "Data",
+                  "required": true,
+                  "semantic": "file:data"
+                }
+              ],
+              "type": "collection",
+              "label": "Attachment"
+            },
+            "type": "array",
+            "label": "Attachments"
+          },
+          {
+            "name": "from",
+            "type": "select",
+            "label": "From"
+          },
+          {
+            "name": "cc",
+            "spec": {
+              "name": "value",
+              "type": "email",
+              "label": "Recipient email address"
+            },
+            "type": "array",
+            "label": "CC recipients"
+          },
+          {
+            "name": "bcc",
+            "spec": {
+              "name": "value",
+              "type": "email",
+              "label": "Recipient email address"
+            },
+            "type": "array",
+            "label": "BCC recipients"
+          },
+          {
+            "name": "emailHeaders",
+            "spec": {
+              "name": "value",
+              "spec": [
+                {
+                  "name": "key",
+                  "type": "text",
+                  "label": "Key",
+                  "required": true
+                },
+                {
+                  "name": "value",
+                  "type": "text",
+                  "label": "Value"
+                }
+              ],
+              "type": "collection",
+              "label": "Email header"
+            },
+            "type": "array",
+            "label": "Additional email headers"
+          },
+          {
+            "name": "contents",
+            "spec": {
+              "name": "value",
+              "spec": [
+                {
+                  "name": "text",
+                  "type": "text",
+                  "label": "Text"
+                },
+                {
+                  "name": "image",
+                  "spec": [
+                    {
+                      "name": "filename",
+                      "type": "filename",
+                      "label": "File name",
+                      "semantic": "file:name"
+                    },
+                    {
+                      "name": "data",
+                      "type": "buffer",
+                      "label": "Data",
+                      "semantic": "file:data"
+                    },
+                    {
+                      "name": "width",
+                      "type": "uinteger",
+                      "label": "Width"
+                    },
+                    {
+                      "name": "height",
+                      "type": "uinteger",
+                      "label": "Height"
+                    }
+                  ],
+                  "type": "collection",
+                  "label": "Image"
+                }
+              ],
+              "type": "collection",
+              "label": "Content"
+            },
+            "type": "array",
+            "label": "Body contents"
+          },
+          {
+            "name": "signature",
+            "type": "select",
+            "label": "Signature content"
+          }
+        ]
+      }
+    }
+  ],
+  "metadata": {
+    "instant": false,
+    "version": 1,
+    "scenario": {
+      "roundtrips": 1,
+      "maxErrors": 3,
+      "autoCommit": true,
+      "autoCommitTriggerLast": true,
+      "sequential": false,
+      "slots": null,
+      "confidential": false,
+      "dataloss": false,
+      "dlq": true,
+      "freshVariables": false
+    },
+    "designer": {
+      "orphans": []
+    },
+    "zone": "eu1.make.com",
+    "notes": []
+  }
+}
